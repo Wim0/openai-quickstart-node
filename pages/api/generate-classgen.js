@@ -16,10 +16,10 @@ export default async function (req, res) {
     }
 
     try {
-        const { priceMin, priceMax, gender, age, hobbies } = req.body;
+        const { asignatura, minutos, contenido, nivel} = req.body;
         const completion = await openai.createCompletion({
             model: 'text-davinci-003',
-            prompt: generatePrompt(priceMin, priceMax, gender, age, hobbies),
+            prompt: generatePrompt(asignatura, minutos, contenido, nivel),
             temperature: 0.6,
             max_tokens: 2048,
         });
@@ -42,6 +42,7 @@ export default async function (req, res) {
 }
 
 //Function that generates the prompt
-function generatePrompt(priceMin, priceMax, gender, age, hobbies) {
-    return `suggest 3 Christmas gift ideas between ${priceMin}$ and ${priceMax}$ for a ${age} years old ${gender} that is into ${hobbies}.`;
+function generatePrompt(asignatura, minutos, contenido, nivel) {
+    return `Soy un profesor de ${asignatura}$. Tengo que hacer una clase de ${minutos}$ minutos y debo enseñar sobre ${contenido}$. Crea una pauta para realizar la clase con todo el contenido necesario y para alumnos de ${nivel}$.`;
 }
+
