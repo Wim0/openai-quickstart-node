@@ -9,37 +9,38 @@ export default function Home() {
   const [priceMin, setPriceMin] = useState(25);
   const [priceMax, setPriceMax] = useState(100);
   const [hobbies, setHobbies] = useState('');
+  
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
 
   async function onSubmit(event) {
-         event.preventDefault();
+    event.preventDefault();
 
-        if (loading){
-          return;
-        }
-        setLoading(true);
-        try {
-          const response = await fetch("/api/generate-gifts", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({priceMin, priceMax, gender, age, hobbies}),
-          });
-    
-          const data = await response.json();
-          if (response.status !== 200) {
-            throw data.error || new Error(`Request failed with status ${response.status}`);
-          }
-          setResult(data.result.replaceAll('\\n', '<br />'));
-        } catch(error) {
-          // Consider implementing your own error handling logic here
-          console.error(error);
-          alert(error.message);
-        } finally {
-          setLoading(false);
-        } 
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await fetch("/api/generate-gifts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ priceMin, priceMax, gender, age, hobbies }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+      setResult(data.result.replaceAll('\\n', '<br />'));
+    } catch (error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -103,7 +104,7 @@ export default function Home() {
           />
           <input type="submit" value="Generate gift ideas" />
         </form>
-        
+
         {loading && (
           <div>
             <h3>Looking for the best gift ideas 🎁 💡</h3>
@@ -111,7 +112,10 @@ export default function Home() {
           </div>
         )}
 
-        <div className={styles.result}>{result}</div>
+        <div
+          className={styles.result}
+          dangerouslySetInnerHTML={{ __html: result }}
+        />
       </main>
     </div>
   );
