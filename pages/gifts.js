@@ -51,7 +51,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h3>Christmas Gift Generator 🎁</h3>
+        <h3>Christmas Gift Generator 🎁 Improved!</h3>
         <form onSubmit={onSubmit}>
           <label>For who is the gift?</label>
           <select
