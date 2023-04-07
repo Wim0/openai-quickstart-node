@@ -1,2 +1,2 @@
-# openai-quickstart-node
-Node.js example app from the OpenAI API quickstart tutorial
+# for the hackaton
+app with the open ai api for lablab
