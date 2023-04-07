@@ -1,3 +1,3 @@
-import Gifts from "./gifts";
+import Classgen from "./classgen";
 
-export default Gifts;
+export default Classgen;
